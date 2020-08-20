@@ -1,6 +1,7 @@
 package Testing.Class;
 
-public class DummieClass {
+
+public class Class {
 
 
     public void configuredJVM(){
