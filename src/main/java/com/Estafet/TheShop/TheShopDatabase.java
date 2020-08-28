@@ -20,7 +20,7 @@ public class TheShopDatabase {
     private String userAddress;
     private static String name;
     static boolean  expl=true;
-    private static ArrayList<TheShopDatabase> temporalAr = new ArrayList<>();
+
 
     public boolean isExpl() {
         return expl;
@@ -138,72 +138,9 @@ public class TheShopDatabase {
 
     }
 
-    public TheShopDatabase(Connection con, Statement stmt, String itemName, int itemID, long itemPrice,
-                           int itemQuantity, int userId, String userFirstName, String userLastName,
-                           String userCity, String userAddress) {
-        this.con = con;
-        this.stmt = stmt;
-        this.itemName = itemName;
-        this.itemID = itemID;
-        this.itemPrice = itemPrice;
-        this.itemQuantity = itemQuantity;
-        this.userId = userId;
-        this.userFirstName = userFirstName;
-        this.userLastName = userLastName;
-        this.userCity = userCity;
-        this.userAddress = userAddress;
-    }
-
-    public TheShopDatabase(String itemName, double itemPrice, int itemQuantity) throws SQLException {
-        this.itemName = itemName;
-        this.itemPrice = itemPrice;
-        this.itemQuantity = itemQuantity;
-        try {
-            String itemInsert = "Insert ignore into Items (ItemName,ItemPrice,ItemQuantity) values (?,?,?)";
-            connection();
-            prep = con.prepareStatement(itemInsert);
-            prep.setString(1, itemName);
-            prep.setDouble(2, itemPrice);
-            prep.setInt(3, itemQuantity);
-            prep.execute();
-            System.out.println("Inserting ItemsData");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            assert con != null;
-            con.close();
-        }
-    }
-
-    public TheShopDatabase(String userFirstName, String userLastName, String userCity, String userAddress) throws SQLException {
-        this.userFirstName = userFirstName;
-        this.userLastName = userLastName;
-        this.userCity = userCity;
-        this.userAddress = userAddress;
-
-        try {
-            String itemInsert = "Insert into Users (UserFirstName,UserLastName,UserCity,UserAddress) values (?,?,?,?)";
-            connection();
-            prep = con.prepareStatement(itemInsert);
-            prep.setString(1, userFirstName);
-            prep.setString(2, userLastName);
-            prep.setString(3, userCity);
-            prep.setString(4, userAddress);
-            prep.execute();
-            System.out.println("Inserting UserData");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            assert con != null;
-            con.close();
-        }
-    }
-
     public static void createTableItems() throws SQLException {
         try {
-            String createTableItems = " Create table if not exists Items\n" +
+            String createTableItems = " Create table if not exists ShopItems.Items\n" +
                     "(" +
                     "\tItemName varchar(50) not null UNIQUE,\n" +
                     "\tItemID int unsigned not null auto_increment,\n" +
@@ -221,14 +158,15 @@ public class TheShopDatabase {
         }
     }
 
-    public void createTableUsers() throws SQLException {
+    public static void createTableUsers() throws SQLException {
         try {
-            String createTableUsers = " Create table if not exists Users\n" + "(" +
+            String createTableUsers = " Create table if not exists ShopUsers.Users\n" + "(" +
                     "\tUserID int unsigned not null auto_increment, \n" +
                     "\tUserFirstName varchar(50) not null default 'First Name', \n" +
                     "\tUserLastName varchar(50) not null default 'Last Name',\n " +
                     "\tUserCity varchar(50) not null default 'Enter City',\n" +
                     "\tUserAddress varchar(150) not null default 'Enter address',\n" +
+                    "\tUserEMail varchar(50) not null UNIQUE,\n " +
                     "\tprimary key (UserID)" +
                     ");";
             connection();
@@ -240,7 +178,34 @@ public class TheShopDatabase {
         } finally {
             stmt.close();
             System.out.println("Table is created");
-            closeConnection();
+            con.close();
+        }
+
+
+    }
+
+    public static void createDBOrdersWithTables() throws SQLException {
+        try {
+            String createTableUsers = " Create table if not exists usersOrders\n" + "(" +
+                    "\tOrderID int unsigned not null auto_increment, \n" +
+                    "\tUserFirstName varchar(50) not null default 'First Name', \n" +
+                    "\tUserLastName varchar(50) not null default 'Last Name',\n " +
+                    "\tUserCity varchar(50) not null default 'Enter City',\n" +
+                    "\tUserAddress varchar(150) not null default 'Enter address',\n" +
+                    "\tUserBasket varchar(500) not null default 'Enter address',\n" +
+                    "\tItemTotalPrice double not null default 0,\n" +
+                    "\tprimary key (OrderID)" +
+                    ");";
+            connection();
+            stmt = con.createStatement();
+            stmt.execute(createTableUsers);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            stmt.close();
+            System.out.println("Table is created");
+            con.close();
         }
 
 
@@ -269,10 +234,10 @@ public class TheShopDatabase {
     @Override
     public String toString() {
         return
-                "itemName= " + itemName +
-                        ", itemID= " + itemID +
-                        ", itemPrice= " + itemPrice +
-                        ", itemQuantity= " + itemQuantity
+                "\n\nitemName: " + itemName +
+                        ",\n itemID: " + itemID +
+                        ",\n itemPrice: " + itemPrice +
+                        ",\n itemQuantity: " + itemQuantity
                 ;
     }
 }

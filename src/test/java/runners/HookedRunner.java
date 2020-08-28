@@ -6,8 +6,12 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
+        monochrome = true,
         features = {"src//test//resources"},
-        glue = {"src/test/java/stepdefs"}
+        plugin = {"json:target/cucumber.json"},
+//        tags = ("@CreateItems and @CreateUsers and @Items"),
+        glue = {"stepdefs"},
+        dryRun = false
 )
 public class HookedRunner {
 }

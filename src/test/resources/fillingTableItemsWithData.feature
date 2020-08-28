@@ -18,8 +18,8 @@ Feature: Creating data for Items table
     Examples:
       | ItemName                 | ItemPrice | ItemQuantity |
       | LG Monitor               | 299.99    | 10           |
-      | Game Pad Cougar-10cm     | 19.99     | 15           |
-      | Game Pad Cougar-15cm     | 29.99     | 10           |
+      | Mouse Pad Cougar-10cm     | 19.99     | 15           |
+      | Mouse Pad Cougar-15cm     | 29.99     | 10           |
       | Logitech Keyboard        | 120       | 5            |
       | EarPlugs                 | 25.99     | 8            |
       | Headphones (China)       | 34.99     | 12           |
