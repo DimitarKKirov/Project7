@@ -3,7 +3,7 @@ Feature: updating prices and quantity of items
   Background: user is connected to database TheShop
     * user is connected to database TheShop
 
-  @items
+  @itemsUpdate
   Scenario Outline: Changing  prices of items
     When user enters <ItemName> of existing item in the table and <price>
     Then the price of the item corresponding to the name is changed
@@ -15,13 +15,18 @@ Feature: updating prices and quantity of items
       | Headphones (China)   | 29.99  |
       | Logitech G903        | 310    |
 
-  @items
+  @itemsUpdate
   Scenario: Changing  prices of one items
     When user enters "LG Monitor" of existing item in the table and 290
     Then the price of the item corresponding to the name is changed
 
-  @items
+  @itemsUpdate
   Scenario: Changing item quantity in stock
-    When user search for item "LG Monitor" and then enter quantity of 25
-    Then the item quantity that corresponds to the name is updated
+    Then user changes the quantity value of needed item
+      | itemName              | QuantityValue |
+      | Mouse Pad Cougar-10cm | 245           |
+      | Mouse Pad Cougar-15cm | 200           |
+      | Logitech Keyboard     | 140           |
+      | EarPlugs              | 99            |
+      | PC Alienware          | 15            |
 

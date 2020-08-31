@@ -46,6 +46,10 @@ public class TableUsers {
         this.userAddress = userAddress;
     }
 
+    public TableUsers() {
+
+    }
+
     public TableUsers(String userFirstName, String userLastName, String userCity, String userAddress, String electronMail) throws SQLException {
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
@@ -61,10 +65,8 @@ public class TableUsers {
             prep.setString(2, userLastName);
             prep.setString(3, userCity);
             prep.setString(4, userAddress);
-            prep.setString(5,electronMail);
+            prep.setString(5, electronMail);
             prep.execute();
-            System.out.println("Inserting UserData");
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -79,7 +81,6 @@ public class TableUsers {
             connection();
             stmt = con.createStatement();
             stmt.execute(deleteItemsContent);
-            System.out.println("\nTable items is clean");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -87,14 +88,25 @@ public class TableUsers {
             con.close();
 
         }
+    }
 
-
+    public static void updateZipOrPostalCode(String column,String mail, String postalZipCode) throws SQLException {
+        try{
+            String updatePrice="update ignore Users set "+column+"= "+"'"+postalZipCode+"'"+" where UserEMail= "+"'"+mail+"'";
+            connection();
+            stmt=con.createStatement();
+            stmt.execute(updatePrice);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            stmt.close();
+            con.close();
+        }
     }
 
     public static void connection() {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ShopUsers?serverTimezone=Europe/Sofia", "root", "root");
-            System.out.println("Connection successful");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/theshop?serverTimezone=Europe/Sofia", "root", "root");
         } catch (SQLException e) {
             e.printStackTrace();
         }

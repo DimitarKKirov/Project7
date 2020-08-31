@@ -6,20 +6,27 @@ Feature: Creating data for Items table
 
   @Items
   Scenario: Adding one Item to the table
-    When user enter "Cougar Keyboard" for name
-    And 149.99 for item price
+    * user enter "Cougar Keyboard" for name
+    * 149.99 for item price
+    * 30 for item quantity
+    * user added the item to the table
+
+  @Items
+  Scenario: Adding one Item to the table
+    When user enter "Toshiba Satellite" for name
+    And 1549.99 for item price
     And 30 for item quantity
     Then user added the item to the table
 
   @Items
   Scenario Outline: Adding multiple items to the table
-    When user enters <ItemName>, <ItemPrice> and <ItemQuantity>
+    When user enters "<ItemName>", "<ItemPrice>" and "<ItemQuantity>"
     Then the items are added to the table
     Examples:
       | ItemName                 | ItemPrice | ItemQuantity |
       | LG Monitor               | 299.99    | 10           |
-      | Mouse Pad Cougar-10cm     | 19.99     | 15           |
-      | Mouse Pad Cougar-15cm     | 29.99     | 10           |
+      | Mouse Pad Cougar-10cm    | 19.99     | 15           |
+      | Mouse Pad Cougar-15cm    | 29.99     | 10           |
       | Logitech Keyboard        | 120       | 5            |
       | EarPlugs                 | 25.99     | 8            |
       | Headphones (China)       | 34.99     | 12           |

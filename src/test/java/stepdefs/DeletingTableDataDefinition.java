@@ -2,14 +2,15 @@ package stepdefs;
 
 import com.Estafet.TheShop.TableItems;
 import com.Estafet.TheShop.TableUsers;
-import io.cucumber.java.en.Then;
+import cucumber.api.java.en.Then;
+
 
 
 import java.sql.*;
 
 public class DeletingTableDataDefinition {
 
-    @Then("the user clears the table")
+    @Then("the user clears item table")
     public void clearTable() throws SQLException {
         TableItems.deleteTableItemsContent();
     }

@@ -140,7 +140,7 @@ public class TheShopDatabase {
 
     public static void createTableItems() throws SQLException {
         try {
-            String createTableItems = " Create table if not exists ShopItems.Items\n" +
+            String createTableItems = " Create table if not exists Items\n" +
                     "(" +
                     "\tItemName varchar(50) not null UNIQUE,\n" +
                     "\tItemID int unsigned not null auto_increment,\n" +
@@ -155,12 +155,13 @@ public class TheShopDatabase {
             e.printStackTrace();
         } finally {
             stmt.close();
+            con.close();
         }
     }
 
     public static void createTableUsers() throws SQLException {
         try {
-            String createTableUsers = " Create table if not exists ShopUsers.Users\n" + "(" +
+            String createTableUsers = " Create table if not exists Users\n" + "(" +
                     "\tUserID int unsigned not null auto_increment, \n" +
                     "\tUserFirstName varchar(50) not null default 'First Name', \n" +
                     "\tUserLastName varchar(50) not null default 'Last Name',\n " +
@@ -177,14 +178,13 @@ public class TheShopDatabase {
             e.printStackTrace();
         } finally {
             stmt.close();
-            System.out.println("Table is created");
             con.close();
         }
 
 
     }
 
-    public static void createDBOrdersWithTables() throws SQLException {
+    public static void createOrdersTable() throws SQLException {
         try {
             String createTableUsers = " Create table if not exists usersOrders\n" + "(" +
                     "\tOrderID int unsigned not null auto_increment, \n" +
@@ -192,6 +192,7 @@ public class TheShopDatabase {
                     "\tUserLastName varchar(50) not null default 'Last Name',\n " +
                     "\tUserCity varchar(50) not null default 'Enter City',\n" +
                     "\tUserAddress varchar(150) not null default 'Enter address',\n" +
+                    "\tUserEMail varchar(50) not null default '',\n " +
                     "\tUserBasket varchar(500) not null default 'Enter address',\n" +
                     "\tItemTotalPrice double not null default 0,\n" +
                     "\tprimary key (OrderID)" +
@@ -199,22 +200,46 @@ public class TheShopDatabase {
             connection();
             stmt = con.createStatement();
             stmt.execute(createTableUsers);
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             stmt.close();
-            System.out.println("Table is created");
             con.close();
         }
+    }
 
+    public static void updateOrdersColumn(String column,String type){
+        try{
+            String addColumn="Alter table usersOrders add column  "+column+" "+type;
+            connection();
+            stmt=con.createStatement();
+            stmt.execute(addColumn);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
+    public static void updateUsersColumn(String column,String type){
+        try{
+            String addColumn="Alter table Users add column "+column+" "+type;
+            connection();
+            stmt=con.createStatement();
+            stmt.execute(addColumn);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public static void connection() {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/theshop?serverTimezone=Europe/Sofia", "root", "root");
-            System.out.println("Connection successful");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void connectionGiven() {
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/theshop?serverTimezone=Europe/Sofia", "root", "root");
         } catch (SQLException e) {
             e.printStackTrace();
         }

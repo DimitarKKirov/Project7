@@ -2,11 +2,8 @@ package stepdefs;
 
 import com.Estafet.TheShop.TableItems;
 import com.Estafet.TheShop.TableUsers;
-import com.Estafet.TheShop.TheShopDatabase;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import java.sql.SQLException;
 
 public class EnteringDataInTables {
@@ -19,29 +16,24 @@ public class EnteringDataInTables {
     private String address;
     private String eMail;
 
-    @Given("user is connected to database TheShop")
-    public void userIsConnectedToDatabase() {
-        TheShopDatabase.connection();
-    }
-
     //- Capturing arguments
-    @When("user enter {string} for name")
-    public void itemName(String string) {
-        itemName = string;
+    @When("^user enter \"(.*)\" for name")
+    public void itemName(String name) {
+        itemName = name;
     }
 
     //- Shorthand character classes
     //- The plus modifier
     //- Anchors
     @When("^(\\d+\\.\\d+) for item price$")
-    public void itemPrice(double arg0) {
-        itemPrice = arg0;
+    public void itemPrice(double price) {
+        itemPrice = price;
     }
 
     //Character classes
-    @When("{int} for item quantity")
-    public void itemQuantity(int arg0) {
-        itemQuantity = arg0;
+    @When("(\\d+) for item quantity")
+    public void itemQuantity(int quantity) {
+        itemQuantity = quantity;
     }
 
     @Then("user added the item to the table")
@@ -53,11 +45,11 @@ public class EnteringDataInTables {
     //- The star modifier
     //- Multiple Captures
     //- Anchors
-    @When("^user enters (.*), (.*) and (.*)$")
-    public void userFillsTheFields(String string1, Double double1, Integer int1) {
-        itemName = string1;
-        itemPrice = double1;
-        itemQuantity = int1;
+    @When("^user enters \"(.*)\", \"(.*)\" and \"(.*)\"$")
+    public void userFillsTheFields(String name, Double price, Integer quantity) {
+        itemName = name;
+        itemPrice = price;
+        itemQuantity = quantity;
     }
 
     @Then("the items are added to the table")
@@ -65,15 +57,14 @@ public class EnteringDataInTables {
         TableItems items = new TableItems(itemName, itemPrice, itemQuantity);
     }
 
-    @When("^user gives input for (.*), (.*), (.*), (.*) and (.*)$")
-    public void userArguments(String arg1, String arg2, String arg3, String arg4,String arg5) {
-        firstName = arg1;
-        lastName = arg2;
-        city = arg3;
-        address = arg4;
-        eMail=arg5;
+    @When("user gives input for \"(.*)\", \"(.*)\", \"(.*)\", \"(.*)\" and \"(.*)\"$")
+    public void userArguments(String fName, String lName, String userCity, String userAddress,String userMail) {
+        firstName = fName;
+        lastName = lName;
+        city = userCity;
+        address = userAddress;
+        eMail=userMail;
     }
-
     @Then("the user is registered as such in the database")
     public void addingFieldsToTableUsers() throws SQLException {
         TableUsers user = new TableUsers(firstName, lastName, city, address,eMail);

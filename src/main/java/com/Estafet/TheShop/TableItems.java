@@ -29,8 +29,41 @@ public class TableItems {
         TableItems.name = name;
     }
 
+    public String getItemName() {
+        return itemName;
+    }
 
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
 
+    public int getItemID() {
+        return itemID;
+    }
+
+    public void setItemID(int itemID) {
+        this.itemID = itemID;
+    }
+
+    public double getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(double itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    public int getItemQuantity() {
+        return itemQuantity;
+    }
+
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
+    }
+
+    public TableItems(){
+
+}
     public TableItems(String itemName, double itemPrice, int itemQuantity) throws SQLException {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
@@ -43,8 +76,6 @@ public class TableItems {
             prep.setDouble(2, itemPrice);
             prep.setInt(3, itemQuantity);
             prep.execute();
-            System.out.println("Inserting ItemsData");
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -60,7 +91,6 @@ public class TableItems {
             connection();
             stmt=con.createStatement();
             stmt.execute(updatePrice);
-            System.out.println("Updating price of "+name+" to "+price);
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
@@ -72,11 +102,9 @@ public class TableItems {
     public static void updateItemQuantity(String nameOfItem,int quantity) throws SQLException {
        try {
            String updatePrice="update items set ItemQuantity= "+quantity+" where ItemName= "+"'"+nameOfItem+"'";
-
         connection();
         stmt=con.createStatement();
         stmt.execute(updatePrice);
-        System.out.println("Updating price of "+nameOfItem+" to "+quantity);
        }catch (SQLException e){
            e.printStackTrace();
        }finally {
@@ -118,7 +146,6 @@ public class TableItems {
             setExpl(false);
         } else {
             try {
-                System.out.println("Searching for " + price);
 
                 connection();
                 stmt = con.createStatement();
@@ -151,7 +178,6 @@ public class TableItems {
         } else {
 
             try {
-                System.out.println("\nSearching for item with price range between " + a + " and " + b);
                 String range = "Select * from items where ItemPrice between " + a + " and " + b;
                 connection();
                 stmt = con.createStatement();
@@ -201,7 +227,7 @@ public class TableItems {
         if (getName() == null) {
             System.out.println("Item not found");
         } else {
-            System.out.println(getName() + " is found in table Items");
+            System.out.println("*"+getName() + " is found in table Items*\n");
         }
         setName(null);
     }
@@ -216,9 +242,9 @@ public class TableItems {
 
     public static void printFoundItem() {
         if (temporalAr.isEmpty()) {
-            System.out.println("\nThere is nothing to show");
+            System.out.println("\n*There is nothing to show*");
         } else {
-            System.out.println("\nItems are found " + temporalAr);
+            System.out.println("*Items are found* " + temporalAr+"\n");
             temporalAr.clear();
         }
 
@@ -226,7 +252,7 @@ public class TableItems {
 
     public static void connection() {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ShopItems?serverTimezone=Europe/Sofia", "root", "root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/theshop?serverTimezone=Europe/Sofia", "root", "root");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -246,7 +272,6 @@ public class TableItems {
             connection();
             stmt = con.createStatement();
             stmt.execute(deleteItemsContent);
-            System.out.println("\nTable items is clean");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
