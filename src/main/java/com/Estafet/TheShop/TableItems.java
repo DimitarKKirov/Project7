@@ -101,10 +101,10 @@ public class TableItems {
 
     public static void updateItemQuantity(String nameOfItem,int quantity) throws SQLException {
        try {
-           String updatePrice="update items set ItemQuantity= "+quantity+" where ItemName= "+"'"+nameOfItem+"'";
+           String updateQuantity="update items set ItemQuantity= "+quantity+" where ItemName= "+"'"+nameOfItem+"'";
         connection();
         stmt=con.createStatement();
-        stmt.execute(updatePrice);
+        stmt.execute(updateQuantity);
        }catch (SQLException e){
            e.printStackTrace();
        }finally {

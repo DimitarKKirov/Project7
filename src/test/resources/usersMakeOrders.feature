@@ -7,7 +7,6 @@ Feature: Users are buying items from the shop
   Scenario: one user makes one order
     When user with E-mail "@DK" orders "LG Monitor" from the shop
     Then user created order in the Order table
-    And the bought item is subtracted from the item quantity
 
   Scenario Outline: many user makes one order
     When this "<users>" make orders for an "<items>"

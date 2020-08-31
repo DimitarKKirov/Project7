@@ -8,8 +8,8 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
         monochrome = true,
         features = {"./src/test/resources/"},
-//        tags = {"@CreateItems,@CreateUsers,@CreateOrders,@ignore @UpdateUsersColumn, @UpdateOrdersColumn," +
-//                "@Items,@Users,@Orders,@DeleteUsers,@DeleteItems"},
+        tags = {"@CreateItems, @CreateUsers, @CreateOrders, " +
+                "@Items, @Users, @Orders,@itemsUpdate,@UpdatingUsersColumnData, @UpdateUsersColumn, @UpdateOrdersColumn"},
         plugin = {"pretty"},
         glue = {"stepdefs"}
 )

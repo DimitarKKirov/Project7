@@ -21,11 +21,6 @@ public class OrdersTable {
         Orders.userBuyingItem(eMail,itemName);
     }
 
-    @Then("^the bought item is subtracted from the item quantity$")
-    public void the_both_item_is_subtracted_from_the_item_quantity() {
-
-    }
-
     @When("^this \"(.*)\" make orders for an \"(.*)\"$")
     public void usersOrders(String mail, String item) {
     itemName=item;
