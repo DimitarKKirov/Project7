@@ -1,16 +1,10 @@
-package Driver;
-import org.junit.Assert;
-import org.junit.Test;
-import org.openqa.selenium.By;
+package POModel.abvBG;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 
 
-public class ChromeDriverSetUp {
+public class LoginPage {
     WebDriver driver;
 
     public void setUp() {
@@ -29,7 +23,7 @@ public void close(){
 
 
 public static void main(String[] args) {
-    ChromeDriverSetUp one=new ChromeDriverSetUp();
+    LoginPage one=new LoginPage();
     one.setUp();
     one.driver.get("https://www.youtube.com");
     one.close();

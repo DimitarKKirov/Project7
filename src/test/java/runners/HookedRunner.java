@@ -7,10 +7,10 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         monochrome = true,
-        features = {"./src/test/resources/"},
-        tags = {"@DeleteUsers, @DeleteItems"},
+        features = {"./src/test/resources/SQLDBTests"},
+//        tags = {"@DeleteUsers, @DeleteItems"},
         plugin = {"pretty"},
-        glue = {"stepdefs"}
+        glue = {"stepdefs/SQLDBStepsDefs"}
 )
 
 public class HookedRunner {

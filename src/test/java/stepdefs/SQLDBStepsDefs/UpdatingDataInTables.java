@@ -1,4 +1,4 @@
-package stepdefs;
+package stepdefs.SQLDBStepsDefs;
 
 import com.Estafet.TheShop.TableItems;
 import com.Estafet.TheShop.TableUsers;

@@ -1,4 +1,4 @@
-package stepdefs;
+package stepdefs.SQLDBStepsDefs;
 
 import com.Estafet.TheShop.Orders;
 import cucumber.api.java.en.When;

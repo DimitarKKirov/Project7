@@ -1,7 +1,11 @@
 package com.Estafet.TheShop;
 
+import com.Estafet.TheShop.PropertiReader.PropertiesReader;
+
 import java.sql.*;
 import java.util.ArrayList;
+
+import static com.Estafet.TheShop.PropertiReader.PropertiesReader.readerConnector;
 
 public class TheShopDatabase {
 
@@ -231,18 +235,11 @@ public class TheShopDatabase {
     }
 
     public static void connection() {
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/theshop?serverTimezone=Europe/Sofia", "root", "root");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        con=readerConnector("C:\\Users\\Admin\\IdeaProjects\\Git Project7\\Poject7\\src\\test\\props\\SQLTheShop.properties");
     }
     public static void connectionGiven() {
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/theshop?serverTimezone=Europe/Sofia", "root", "root");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+       con= readerConnector("C:\\Users\\Admin\\IdeaProjects\\Git Project7\\Poject7\\src\\test\\props\\SQLTheShop.properties");
+
     }
 
     public void closeConnection() {
